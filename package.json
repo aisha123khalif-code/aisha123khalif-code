@@ -1,0 +1,26 @@
+{
+  "name": "ai-video-studio",
+  "version": "1.0.0",
+  "description": "AI-powered video creation and editing platform",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "install-db": "node server/db/setup.js"
+  },
+  "keywords": ["ai", "video", "editing", "ml"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.6.0",
+    "openai": "^4.20.1",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

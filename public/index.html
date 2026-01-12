@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Studio - Create Amazing Videos with AI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome Pro CDN - Replace with your actual token -->
+    <script src="https://kit.fontawesome.com/yourtoken.js" crossorigin="anonymous"></script>
+</head>
+<body class="light-theme">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-video"></i>
+                <span>AI Video Studio</span>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="btn-icon" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Onboarding Wizard -->
+    <div id="onboarding-wizard" class="wizard-overlay">
+        <div class="wizard-container">
+            <button class="wizard-close" id="close-wizard">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="wizard-content">
+                <!-- Step 1 -->
+                <div class="wizard-step active" data-step="1">
+                    <div class="wizard-icon">
+                        <i class="fa-solid fa-rocket fa-3x"></i>
+                    </div>
+                    <h2>Welcome to AI Video Studio!</h2>
+                    <p>Let's get you started with our powerful features</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="wizard-step" data-step="2">
+                    <div class="wizard-icon">
+                        <i class="fa-solid fa-icons fa-3x"></i>
+                    </div>
+                    <h2>Icon Customization</h2>
+                    <p>Customize thousands of Font Awesome Pro icons with colors, sizes, and styles</p>
+                    <div class="demo-icon">
+                        <i class="fa-solid fa-heart" style="color: #e74c3c; font-size: 3rem;"></i>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="wizard-step" data-step="3">
+                    <div class="wizard-icon">
+                        <i class="fa-solid fa-wand-magic-sparkles fa-3x"></i>
+                    </div>
+                    <h2>AI Video Generator</h2>
+                    <p>Generate stunning videos using AI with just a text prompt</p>
+                    <div class="demo-prompt">
+                        <input type="text" value="Create a video about nature" readonly>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="wizard-step" data-step="4">
+                    <div class="wizard-icon">
+                        <i class="fa-solid fa-download fa-3x"></i>
+                    </div>
+                    <h2>Export Your Work</h2>
+                    <p>Download icons as SVG/PNG and videos as MP4</p>
+                    <div class="export-options">
+                        <span class="badge">SVG</span>
+                        <span class="badge">PNG</span>
+                        <span class="badge">MP4</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wizard-navigation">
+                <button id="wizard-prev" class="btn btn-secondary" disabled>Previous</button>
+                <div class="wizard-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button id="wizard-next" class="btn btn-primary">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Create Amazing Videos with AI</h1>
+                <p>Generate videos, customize icons, and export your content with ease</p>
+            </section>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="video-gen">
+                    <i class="fa-solid fa-video"></i> Video Generator
+                </button>
+                <button class="tab-btn" data-tab="icon-custom">
+                    <i class="fa-solid fa-icons"></i> Icon Customizer
+                </button>
+                <button class="tab-btn" data-tab="my-content">
+                    <i class="fa-solid fa-folder"></i> My Content
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Video Generator Tab -->
+                <div id="video-gen" class="tab-pane active">
+                    <div class="card">
+                        <h2><i class="fa-solid fa-wand-magic-sparkles"></i> AI Video Generator</h2>
+                        <form id="video-form">
+                            <div class="form-group">
+                                <label for="video-title">Video Title</label>
+                                <input type="text" id="video-title" placeholder="My Awesome Video" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-prompt">Video Prompt</label>
+                                <textarea id="video-prompt" rows="4" 
+                                    placeholder="Describe the video you want to create..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-magic"></i> Generate Video
+                            </button>
+                        </form>
+                        <div id="video-status" class="status-message"></div>
+                    </div>
+                </div>
+
+                <!-- Icon Customizer Tab -->
+                <div id="icon-custom" class="tab-pane">
+                    <div class="card">
+                        <h2><i class="fa-solid fa-palette"></i> Icon Customizer</h2>
+                        <form id="icon-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="icon-name">Icon Name</label>
+                                    <input type="text" id="icon-name" placeholder="heart" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="icon-style">Style</label>
+                                    <select id="icon-style">
+                                        <option value="solid">Solid</option>
+                                        <option value="regular">Regular</option>
+                                        <option value="light">Light</option>
+                                        <option value="duotone">Duotone</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="icon-color">Color</label>
+                                    <input type="color" id="icon-color" value="#000000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="icon-size">Size</label>
+                                    <select id="icon-size">
+                                        <option value="small">Small</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="large">Large</option>
+                                        <option value="xlarge">X-Large</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="icon-preview">
+                                <div id="preview-icon">
+                                    <i class="fa-solid fa-heart" style="color: #000000; font-size: 3rem;"></i>
+                                </div>
+                            </div>
+                            <div class="button-group">
+                                <button type="button" id="save-icon" class="btn btn-primary">
+                                    <i class="fa-solid fa-save"></i> Save Icon
+                                </button>
+                                <button type="button" id="export-svg" class="btn btn-secondary">
+                                    <i class="fa-solid fa-download"></i> Export SVG
+                                </button>
+                                <button type="button" id="export-png" class="btn btn-secondary">
+                                    <i class="fa-solid fa-download"></i> Export PNG
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- My Content Tab -->
+                <div id="my-content" class="tab-pane">
+                    <div class="card">
+                        <h2><i class="fa-solid fa-folder-open"></i> My Videos</h2>
+                        <div id="videos-list" class="content-grid">
+                            <p class="empty-state">No videos yet. Generate your first video!</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2><i class="fa-solid fa-icons"></i> My Icons</h2>
+                        <div id="icons-list" class="content-grid">
+                            <p class="empty-state">No icons saved yet. Customize your first icon!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 AI Video Studio. All rights reserved.</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+</html>
