@@ -6,7 +6,7 @@ const trackEvent = async (req, res) => {
     const { user_id, event_type, event_data } = req.body;
     const [result] = await db.query(
       'INSERT INTO analytics (user_id, event_type, event_data) VALUES (?, ?, ?)',
-      [user_id || null, event_type, JSON.stringify(event_data || {})]
+      [user_id ?? null, event_type, JSON.stringify(event_data ?? {})]
     );
     res.status(201).json({ 
       id: result.insertId,

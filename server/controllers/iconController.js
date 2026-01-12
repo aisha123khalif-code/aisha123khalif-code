@@ -6,7 +6,7 @@ const createIcon = async (req, res) => {
     const { user_id, icon_name, icon_class, color, size, style } = req.body;
     const [result] = await db.query(
       'INSERT INTO icons (user_id, icon_name, icon_class, color, size, style) VALUES (?, ?, ?, ?, ?, ?)',
-      [user_id, icon_name, icon_class, color || '#000000', size || 'medium', style || 'solid']
+      [user_id, icon_name, icon_class, color ?? '#000000', size ?? 'medium', style ?? 'solid']
     );
     res.status(201).json({ 
       id: result.insertId, 

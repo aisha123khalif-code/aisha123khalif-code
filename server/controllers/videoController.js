@@ -14,9 +14,12 @@ const createVideo = async (req, res) => {
       [user_id, title, prompt, 'pending']
     );
     
-    // Start video generation asynchronously
+    // Start video generation asynchronously (fire-and-forget pattern)
+    // Errors are handled within generateVideoAsync and logged
     const videoId = result.insertId;
-    generateVideoAsync(videoId, prompt);
+    generateVideoAsync(videoId, prompt).catch(error => {
+      console.error('Unhandled error in video generation:', error);
+    });
     
     res.status(201).json({ 
       id: videoId, 
