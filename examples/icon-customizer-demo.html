@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Customizer Demo - AI Video Studio</title>
+    <script src="https://kit.fontawesome.com/yourtoken.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        input, select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .preview {
+            background: #f9f9f9;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        #icon-preview {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+        button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        .code-output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin-top: 2rem;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Icon Customizer Demo</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="icon-name">Icon Name</label>
+                <input type="text" id="icon-name" value="heart" placeholder="e.g., rocket, star, heart">
+            </div>
+            
+            <div class="control-group">
+                <label for="icon-style">Style</label>
+                <select id="icon-style">
+                    <option value="solid">Solid</option>
+                    <option value="regular">Regular</option>
+                    <option value="light">Light</option>
+                    <option value="duotone">Duotone</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="icon-color">Color</label>
+                <input type="color" id="icon-color" value="#e74c3c">
+            </div>
+            
+            <div class="control-group">
+                <label for="icon-size">Size (px)</label>
+                <input type="range" id="icon-size" min="20" max="200" value="80">
+                <span id="size-value">80px</span>
+            </div>
+        </div>
+
+        <div class="preview">
+            <div id="icon-preview">
+                <i class="fa-solid fa-heart" style="color: #e74c3c; font-size: 80px;"></i>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-primary" onclick="copyHTML()">Copy HTML</button>
+            <button class="btn-secondary" onclick="resetDefaults()">Reset</button>
+        </div>
+
+        <div class="code-output" id="code-output"></div>
+    </div>
+
+    <script>
+        const iconName = document.getElementById('icon-name');
+        const iconStyle = document.getElementById('icon-style');
+        const iconColor = document.getElementById('icon-color');
+        const iconSize = document.getElementById('icon-size');
+        const sizeValue = document.getElementById('size-value');
+        const preview = document.getElementById('icon-preview');
+        const codeOutput = document.getElementById('code-output');
+
+        function updatePreview() {
+            const name = iconName.value || 'heart';
+            const style = iconStyle.value;
+            const color = iconColor.value;
+            const size = iconSize.value;
+
+            const iconClass = `fa-${style} fa-${name}`;
+            const html = `<i class="${iconClass}" style="color: ${color}; font-size: ${size}px;"></i>`;
+            
+            preview.innerHTML = html;
+            sizeValue.textContent = `${size}px`;
+            
+            // Update code output
+            codeOutput.textContent = `<!-- Font Awesome Icon -->\n${html}\n\n<!-- CSS Properties -->\ncolor: ${color};\nfont-size: ${size}px;`;
+        }
+
+        function copyHTML() {
+            const html = preview.innerHTML;
+            navigator.clipboard.writeText(html).then(() => {
+                alert('HTML copied to clipboard!');
+            });
+        }
+
+        function resetDefaults() {
+            iconName.value = 'heart';
+            iconStyle.value = 'solid';
+            iconColor.value = '#e74c3c';
+            iconSize.value = 80;
+            updatePreview();
+        }
+
+        // Event listeners
+        iconName.addEventListener('input', updatePreview);
+        iconStyle.addEventListener('change', updatePreview);
+        iconColor.addEventListener('input', updatePreview);
+        iconSize.addEventListener('input', updatePreview);
+
+        // Initial update
+        updatePreview();
+    </script>
+</body>
+</html>
