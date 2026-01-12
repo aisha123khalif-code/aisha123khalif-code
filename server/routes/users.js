@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { createLimiter } = require('../middleware/rateLimiter');
 const {
   createUser,
   getUserById,
@@ -8,7 +9,7 @@ const {
   getAllUsers
 } = require('../controllers/userController');
 
-router.post('/', createUser);
+router.post('/', createLimiter, createUser);
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);
 router.put('/:id', updateUser);
